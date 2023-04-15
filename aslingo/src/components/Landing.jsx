@@ -1,27 +1,98 @@
-import React from "react";
-import  styled from 'styled-components';
+import React, { useState, useEffect } from "react";
+import styled from 'styled-components';
+import ParticlesBackround from "../config/ParticlesBackground";
+import {CSSTransition, Transition, TransitionGroup} from 'react-transition-group';
+import { Link } from "react-router-dom";
 
-const ButtonDiv = styled.div`
+const LandingSection = styled.section`
+    display: grid;
+    height: 1000px;
+    grid-template-columns: 3fr 2fr;
 
-    a {
-        background-color: #282c34;
-        font-size: 20px;
-        padding: 10px 60px; 
-        border-radius: 5px;
-        margin: 0px 10px;
-        cursor: pointer;
+`
+
+const ImageDiv = styled.div`
+    display: grid;
+    align-items: center;
+    justify-content: center;
+
+    img {
+        height: 500px;
     }
     
 `
 
+const ButtonDiv = styled.div`
+    display: grid;
+    align-items: center;
+    justify-content: center;
+
+    a {
+        display: flex;
+        background-color: var(--main-blue);
+        font-size: 32px;
+        color: white;
+        padding: 10px; 
+        border-radius: 5px;
+        cursor: pointer; 
+        height: 80px;
+        text-decoration: none;
+        letter-spacing: 0.1em;
+        width: 400px;
+        text-align: center;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 1px 4px 4px 0 rgba(0,0,0,0.8);
+        transition: all 0.2s ease-in;
+
+        &:hover {
+            background-color: var(--main-blue-darker);
+        }
+    }
+
+`
+
+
+
 const Landing = () => {
+    const [isMounted, setIsMounted] = useState(false)
+
+    useEffect(() => {
+        const timeout = setTimeout(() => {
+            setIsMounted(true)
+        }, 100)
+
+        return () => {
+            clearTimeout(timeout)
+        }
+    }, [])
+
+    const timeout = 1000;
+    const fadeClass = 'fade';
+    const fadeUpClass = 'fadeup';
+
     
     return(
-        <div>
+        <LandingSection>
+            <ImageDiv>
+                <TransitionGroup component={null}>        
+                        {isMounted && (
+                            <CSSTransition classNames={fadeUpClass} timeout={timeout}>
+                                <img src="../hand_fill.png" alt="hand filled" />
+                            </CSSTransition>
+                        )}
+                </TransitionGroup>
+            </ImageDiv>
             <ButtonDiv>
-                <a>Start Learning!</a>
+                <TransitionGroup component={null}>
+                    {isMounted && (
+                        <CSSTransition classNames={fadeUpClass} timeout={timeout}>
+                            <Link to="/learn">Start Learning!</Link>
+                        </CSSTransition>
+                    )}
+                </TransitionGroup>
             </ButtonDiv>
-        </div>
+        </LandingSection>
     )
 }
 
