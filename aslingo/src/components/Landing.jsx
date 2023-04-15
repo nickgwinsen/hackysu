@@ -5,10 +5,37 @@ import {CSSTransition, Transition, TransitionGroup} from 'react-transition-group
 import { Link } from "react-router-dom";
 
 const LandingSection = styled.section`
-    display: grid;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     height: 1000px;
+
+`
+
+const LandingGrid = styled.div`
+    display: grid;
+    height: 100%;
     grid-template-columns: 3fr 2fr;
 
+`
+
+const LandingHeader = styled.div`
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    margin-bottom: 50px;
+
+    h2 {
+        font-weight: 700;
+        font-size: 80px;
+        margin: 50px 50px 10px 0;
+    }
+
+    span {
+        font-weight: 600;
+        font-size: 70px;
+        color: var(--main-blue);
+    }
 `
 
 const ImageDiv = styled.div`
@@ -19,6 +46,7 @@ const ImageDiv = styled.div`
     img {
         height: 500px;
     }
+    
     
 `
 
@@ -74,6 +102,11 @@ const Landing = () => {
     
     return(
         <LandingSection>
+            <LandingHeader>
+                <h2>Welcome to ASLingo</h2>
+                <span>Where you can learn ASL!</span>
+            </LandingHeader>
+            <LandingGrid>
             <ImageDiv>
                 <TransitionGroup component={null}>        
                         {isMounted && (
@@ -92,6 +125,7 @@ const Landing = () => {
                     )}
                 </TransitionGroup>
             </ButtonDiv>
+            </LandingGrid>
         </LandingSection>
     )
 }
