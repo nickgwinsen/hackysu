@@ -55,7 +55,7 @@ const Header = () => {
         <HeaderWrapper> 
             <HeaderDiv>
                 <HeaderLogo>
-                 <img src="../../publi" alt="Hand_no_Fill" />
+                 <img src="../../public/hand_no_fill.png" alt="Hand_no_Fill" />
                 <h1>ASLingo</h1>
                 </HeaderLogo>
             </HeaderDiv>
