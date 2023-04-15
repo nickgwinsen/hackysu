@@ -134,7 +134,8 @@ const Header = ({ isHome }) => {
                 <HeaderLinks>
                     <ul>
                         <TransitionGroup component={null}>
-                            {isMounted &&
+                            {isHome &&
+                                isMounted &&
                                 navLinks &&
                                 navLinks.map(({ url, name }, i) => (
                                     <CSSTransition key={i} classNames={fadeDownClass} timeout={timeout}>
