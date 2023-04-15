@@ -104,15 +104,25 @@ const Landing = () => {
     return(
         <LandingSection>
             <LandingHeader>
-                <h2>Welcome to ASLingo</h2>
-                <span>Where you can learn ASL!</span>
+                <TransitionGroup component={null}>
+                    {isMounted && (
+                    
+                        <CSSTransition classNames={fadeUpClass} timeout={timeout}>
+                            <div>
+                                <h2>Welcome to ASLingo</h2>
+                                <span style={{ transitionDelay: "100ms" }}>Where you can learn ASL!</span>
+                            </div>
+                        </CSSTransition>
+                       
+                    )}
+                </TransitionGroup>
             </LandingHeader>
             <LandingGrid>
                 <ImageDiv>
                     <TransitionGroup component={null}>        
                             {isMounted && (
                                 <CSSTransition classNames={fadeUpClass} timeout={timeout}>
-                                    <img src="../hand_fill.png" alt="hand filled" />
+                                    <img src="../hand_fill.png" alt="hand filled" style={{ transitionDelay: "200ms" }} />
                                 </CSSTransition>
                             )}
                     </TransitionGroup>
@@ -121,7 +131,7 @@ const Landing = () => {
                     <TransitionGroup component={null}>
                         {isMounted && (
                             <CSSTransition classNames={fadeUpClass} timeout={timeout}>
-                                <Link to="/learn">Start Learning!</Link>
+                                <Link to="/learn" style={{ transitionDelay: "300ms" }}>Start Learning!</Link>
                             </CSSTransition>
                         )}
                     </TransitionGroup>
