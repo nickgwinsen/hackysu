@@ -17,7 +17,6 @@ const HeaderWrapper = styled.header`
     right: 0;
     left: 0;
     z-index: 9;
-    box-shadow: 0 4px 2px -2px black;
     color: white;
     transition: all 0.25s cubic-bezier(0.645, 0.045, 0.355, 1);
 `
@@ -103,6 +102,27 @@ const Header = ({ isHome }) => {
         }
     }, [])
 
+    const smoothScroll = (e, target) => {
+        e.preventDefault();
+
+        if (target === "#home") {
+            const offsetTop = 0;
+        
+            window.scrollTo({
+            top: offsetTop,
+            behavior: 'smooth',
+            });
+        } else {
+            const targetElement = document.querySelector(target);
+            const rect = targetElement.getBoundingClientRect();
+            const offsetTop = rect.top + window.pageYOffset - 80;
+
+            window.scrollTo({
+                top: offsetTop,
+                behavior: 'smooth',
+            });
+      };
+    }
 
     const timeout = 2000;
     const fadeClass = isHome ? 'fade' : '';
@@ -111,7 +131,7 @@ const Header = ({ isHome }) => {
     const logo = (
         <HeaderLogo>
             {isHome ? (
-                <a href="/"><img src="../hand_no_fill_white.png" alt="hand_no_Fill" />
+                <a href="#home" onClick={(e) => smoothScroll(e, '#home')}><img src="../hand_no_fill_white.png" alt="hand_no_Fill" />
                 <h1>ASLingo</h1></a>
             ) : (
                 <Link to="/"><img src="../hand_no_fill_white.png" alt="hand_no_Fill" />
@@ -140,7 +160,7 @@ const Header = ({ isHome }) => {
                                 navLinks.map(({ url, name }, i) => (
                                     <CSSTransition key={i} classNames={fadeDownClass} timeout={timeout}>
                                         <li key={i} style={{ transitionDelay: `${isHome ? i * 100 : 0}ms` }}>
-                                                <a href={url}>{name}</a>
+                                                <a href={url} onClick={(e) => smoothScroll(e, url)}>{name}</a>
                                             </li>
                                     </CSSTransition>
                             ))}

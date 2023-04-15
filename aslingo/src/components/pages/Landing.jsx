@@ -1,17 +1,18 @@
 import React, { useState, useEffect } from "react";
 import styled from 'styled-components';
-
-
+import Particles from "react-tsparticles";
 import {CSSTransition, Transition, TransitionGroup} from 'react-transition-group';
 import { Link } from "react-router-dom";
+import GalaxyBackground from "../../config/GalaxyBackround";
+
 
 const LandingSection = styled.section`
     display: flex;
     flex-direction: column;
     align-items: center;
     height: 1000px;
-
-`
+    background-color: white;
+   `
 
 const LandingGrid = styled.div`
     display: grid;
@@ -24,6 +25,7 @@ const LandingGrid = styled.div`
 const LandingHeader = styled.div`
     display: flex;
     flex-direction: column;
+    align-items: center;
     text-align: left;
     margin-bottom: 50px;
 
@@ -73,14 +75,14 @@ const ButtonDiv = styled.div`
         align-items: center;
         justify-content: center;
         box-shadow: 1px 4px 4px 0 rgba(0,0,0,0.8);
-        transition: all 0.2s ease-in;
+        transition: var(--transition);
 
         &:hover {
             background-color: var(--main-blue-darker);
         }
     }
 
-`
+`   
 
 
 
@@ -97,49 +99,55 @@ const Landing = () => {
         }
     }, [])
 
+    const handeClick = () => {
+        setIsMounted(false)
+    }
+
     const timeout = 1000;
     const fadeClass = 'fade';
     const fadeUpClass = 'fadeup';
 
     
     return(
-        <LandingSection>
-           
-            <LandingHeader>
-                <TransitionGroup component={null}>
-                    {isMounted && (
-                    
-                        <CSSTransition classNames={fadeUpClass} timeout={timeout}>
-                            <div>
-                                <h2>Welcome to ASLingo</h2>
-                                <span style={{ transitionDelay: "100ms" }}>Where you can learn ASL!</span>
-                            </div>
-                        </CSSTransition>
-                       
-                    )}
-                </TransitionGroup>
-            </LandingHeader>
-            <LandingGrid>
-                <ImageDiv>
-                    <TransitionGroup component={null}>        
-                            {isMounted && (
-                                <CSSTransition classNames={fadeUpClass} timeout={timeout}>
-                                    <img src="../hand_fill.png" alt="hand filled" style={{ transitionDelay: "200ms" }} />
-                                </CSSTransition>
-                            )}
-                    </TransitionGroup>
-                </ImageDiv>
-                <ButtonDiv>
+            <LandingSection id="home">
+                <GalaxyBackground>
+                <LandingHeader>
                     <TransitionGroup component={null}>
                         {isMounted && (
+                        
                             <CSSTransition classNames={fadeUpClass} timeout={timeout}>
-                                <Link to="/learn" style={{ transitionDelay: "300ms" }}>Start Learning!</Link>
+                                <div>
+                                    <h2>Welcome to ASLingo</h2>
+                                    <span style={{ transitionDelay: "100ms" }}>Where you can learn ASL!</span>
+                                </div>
                             </CSSTransition>
+                        
                         )}
                     </TransitionGroup>
-                </ButtonDiv>
-            </LandingGrid>
-        </LandingSection>     
+                </LandingHeader>
+                <LandingGrid>
+                    <ImageDiv>
+                        <TransitionGroup component={null}>        
+                                {isMounted && (
+                                    <CSSTransition classNames={fadeUpClass} timeout={timeout}>
+                                        <img src="../hand_fill.png" alt="hand filled" />
+                                    </CSSTransition>
+                                )}
+                        </TransitionGroup>
+                    </ImageDiv>
+                    <ButtonDiv>
+                        <TransitionGroup component={null}>
+                            {isMounted && (
+                                <CSSTransition classNames={fadeUpClass} timeout={timeout}>
+                                    <Link to="/learn" onClick={handeClick}>Start Learning!</Link>
+                                </CSSTransition>
+                            )}
+                        </TransitionGroup>
+                    </ButtonDiv>
+                </LandingGrid>
+                </GalaxyBackground>  
+            </LandingSection>  
+         
     )
 }
 
