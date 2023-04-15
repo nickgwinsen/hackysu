@@ -15,6 +15,7 @@ const LandingSection = styled.section`
 const LandingGrid = styled.div`
     display: grid;
     height: 100%;
+    width: 100%;
     grid-template-columns: 3fr 2fr;
 
 `
@@ -107,24 +108,24 @@ const Landing = () => {
                 <span>Where you can learn ASL!</span>
             </LandingHeader>
             <LandingGrid>
-            <ImageDiv>
-                <TransitionGroup component={null}>        
+                <ImageDiv>
+                    <TransitionGroup component={null}>        
+                            {isMounted && (
+                                <CSSTransition classNames={fadeUpClass} timeout={timeout}>
+                                    <img src="../hand_fill.png" alt="hand filled" />
+                                </CSSTransition>
+                            )}
+                    </TransitionGroup>
+                </ImageDiv>
+                <ButtonDiv>
+                    <TransitionGroup component={null}>
                         {isMounted && (
                             <CSSTransition classNames={fadeUpClass} timeout={timeout}>
-                                <img src="../hand_fill.png" alt="hand filled" />
+                                <Link to="/learn">Start Learning!</Link>
                             </CSSTransition>
                         )}
-                </TransitionGroup>
-            </ImageDiv>
-            <ButtonDiv>
-                <TransitionGroup component={null}>
-                    {isMounted && (
-                        <CSSTransition classNames={fadeUpClass} timeout={timeout}>
-                            <Link to="/learn">Start Learning!</Link>
-                        </CSSTransition>
-                    )}
-                </TransitionGroup>
-            </ButtonDiv>
+                    </TransitionGroup>
+                </ButtonDiv>
             </LandingGrid>
         </LandingSection>
     )
