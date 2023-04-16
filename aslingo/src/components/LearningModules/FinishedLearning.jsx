@@ -1,5 +1,16 @@
 import React from "react";
 import styled from "styled-components";
+import Particles from "react-tsparticles";
+import {particlesConfig} from "../../config/particles-config";
+
+
+
+
+
+
+
+
+
 
 const FinishedSection = styled.div`
     height: 100%;
@@ -20,9 +31,11 @@ const FinishedSection = styled.div`
 
 const FinishedLearning = () => {
     return(
+        <>
+        <Particles options={particlesConfig} />
         <FinishedSection>
-            <h1>Congratulations! You have learned the <span>American Sign Language</span> Alphabet!</h1>
-        </FinishedSection>
+            <h1>Congratulations! You have completed lesson one in <span>American Sign Language.</span></h1>
+        </FinishedSection> </>
     )
 }
 

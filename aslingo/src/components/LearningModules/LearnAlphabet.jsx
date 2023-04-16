@@ -241,7 +241,9 @@ const LearnAlphabet = () => {
                 !finished && (
                     <CameraView>
                         <CapturedImage src={capturedImage}/>
-                        <a onClick={handleRetake}>Retake</a>
+                        {!success && (
+                            <a onClick={handleRetake}>Retake</a>
+                        )}
                     </CameraView>
                 )}
                     <BottomDiv>

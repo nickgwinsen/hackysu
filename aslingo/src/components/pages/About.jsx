@@ -21,7 +21,9 @@ const AboutSection = styled.section`
     h1 {
         font-weight: 700;
         font-size: 80px;
-        margin-bottom: 0
+        width: 50%;
+        margin-bottom: 0;
+        margin-left: 200px;
     }
 
 `

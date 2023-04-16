@@ -10,6 +10,7 @@ import { useLocation } from 'react-router-dom'
 import Header from './components/Header';
 import Layout from './components/Layout';
 import MainModule from './components/LearningModules/MainModule';
+import Footer from './components/Footer';
 
 
 
@@ -27,6 +28,7 @@ function App() {
           <Route path='/' element={<Layout/>}/>
           <Route path='/learn' element={<MainModule/>}/>
         </Routes>
+        <Footer/>
     </div>
   );
 }
