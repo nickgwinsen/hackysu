@@ -26,7 +26,7 @@ const LandingHeader = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    text-align: left;
+    text-align: center;
     margin-bottom: 50px;
 
     h2 {
@@ -114,11 +114,10 @@ const Landing = () => {
                 <LandingHeader>
                     <TransitionGroup component={null}>
                         {isMounted && (
-                        
                             <CSSTransition classNames={fadeUpClass} timeout={timeout}>
                                 <div>
                                     <h2>Welcome to ASLingo</h2>
-                                    <span style={{ transitionDelay: "100ms" }}>Where you can learn ASL!</span>
+                                    <span style={{ transitionDelay: "100ms" }}>Where you can learn American Sign Language!</span>
                                 </div>
                             </CSSTransition>
                         
