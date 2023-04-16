@@ -68,8 +68,7 @@ const About = () => {
                     At ASLingo, we are determined to provide the best American Sign Language, ASL, training possible. 
                     We are young, motivated software developers looking to make a difference in the world. We are passionate 
                     about promoting communication, inclusivity, and accessibility for deaf and hard of hearing individuals. 
-                    Using our video capture system, users will receive feedback to determine if they performed the correct sign. 
-                    In addition, the site keeps track of the users progress and ensures the user masters each sign before advancing.  
+                    Using our video capture system, users will receive feedback to determine if they performed the correct sign.  
                 </p>
                 <ImageDiv>
                     <img src="../ILY.png"/>
