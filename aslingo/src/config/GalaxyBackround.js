@@ -9,7 +9,7 @@ const isValidHexCode = (s) => {
 const GalaxyBackground = (props) => {
 
   const starCount = props.starCount || 500;
-  const rotationSpeed = props.rotationSpeed || 0.04;
+  const rotationSpeed = props.rotationSpeed || 0.02;
   const innerRadius = props.innerRadius || 25;
   const minSize = props.minSize || 1;
   const maxSize = props.maxSize || 2;
@@ -33,12 +33,14 @@ const GalaxyBackground = (props) => {
     handleResize();
   });
 
+
   const rotate = (stars, center) => {
     stars.forEach(function (star) {
       star.angle += (star.speed * Math.PI) / 180;
       star.setAttribute("cx", center.x + star.radius * Math.cos(star.angle));
       star.setAttribute("cy", center.y + star.radius * Math.sin(star.angle));
 
+    
     });
     requestAnimationFrame(() => rotate(stars, center));
   };

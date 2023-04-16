@@ -10,6 +10,15 @@ const LearningModule = styled.div`
     flex-direction: column;
     text-align: left;
     justify-content: center;
+
+    h1 {
+        font-size: 60px;
+        margin-top: 0;
+    }
+
+    span {
+        color: var(--main-blue);
+    }
 `
 
 const CameraView = styled.div`
@@ -17,6 +26,7 @@ const CameraView = styled.div`
     width: 960px;
     background-color: var(--main-blue);
     border-radius: 2rem;
+    border: 2px solid var(--main-blue);
     position: relative;
 
     a {
@@ -135,9 +145,10 @@ const LearnAlphabet = () => {
     return(
         <LearningModule>
             <h1>
-                Sign the letter {Letters[currentLetterIndex].letter}
+                Sign the letter <span>{Letters[currentLetterIndex].letter}</span>
             </h1>
-                {!capturedImage ? (
+                {!capturedImage &&
+                videoRef ? (
                     <CameraView>
                         <Video ref={videoRef} />
                         <a onClick={captureImage}><FontAwesomeIcon icon={faCamera} size="xl"/></a>
