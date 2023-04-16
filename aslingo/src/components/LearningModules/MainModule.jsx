@@ -44,7 +44,7 @@ const PathBox = styled.div`
     width: 250px;
     border: 2px solid var(--main-gray);
     border-radius: 20px;
-    margin: 0 20px 0 20px;
+    margin: 0 90px 0 136px ;
     padding: 20px;
     cursor: pointer;
     transition: var(--transition);
@@ -62,7 +62,28 @@ const PathBox = styled.div`
     }
 
 `
-const Button1Div styled.div`
+const Button1Div = styled.div`
+    margin: 0 0 713px -150px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: start;
+
+    a {
+        padding: 8px 20px;
+        border: 1px solid var(--main-blue);
+        border-radius: 5px;
+        color: var(--main-blue);
+        cursor: pointer;
+        transition: var(--transition);
+
+        &:hover {
+            background-color: var(--main-blue);
+            color: white;
+        } 
+    }
+
+
+
 `
 
 const ButtonDiv = styled.div`
@@ -87,29 +108,10 @@ const ButtonDiv = styled.div`
 
 `
 
-const BottomDiv = styled.div`
-    display: flex;
-    justify-content: end;
-    width: 1000px;
 
-    a {
-        padding: 8px 30px;
-        border: 1px solid var(--main-blue);
-        border-radius: 5px;
-        color: var(--main-blue);
-        cursor: pointer;
-        transition: var(--transition);
-
-        &:hover {
-            background-color: var(--main-blue);
-            color: white;
-        }
-    }
-`
 
 const MainModule = () => {
 
-    const [isChecked, setIsChecked] = useState(false)
     const [active, setActive] = useState(false)
 
     const loadIsLearningFromLocalStorage = () => {
@@ -138,14 +140,18 @@ const MainModule = () => {
         setIsLearning(false);
         localStorage.setItem('isLearning', 'false'); // Store the value as a string
         }
+    const handleBackButton2 = () => {
+        setActive(false);
+        localStorage.setItem('Active','false');
+    }
 
     return( 
         <ModuleSection>
                 {!isLearning && !active && (
                 <ModuleBox>
-                        <ButtonDiv>
+                        <Button1Div>
                      <Link to="/"><FontAwesomeIcon icon={faLeftLong} size="2xl" /></Link>
-                        </ButtonDiv>
+                        </Button1Div>
                     <PathBox onClick={handleClick}>
                     <p>Learn the alphabet in ASL!</p>
                     </PathBox>
@@ -163,20 +169,14 @@ const MainModule = () => {
             </LearningModuleBox>
                )}
                 {active && (
-                    <AlphabetChart/>
+                    <LearningModuleBox>
+                        <ButtonDiv>
+                            <a onClick={handleBackButton2}><FontAwesomeIcon icon={faLeftLong} size="2xl" /></a>
+                        </ButtonDiv>
+                        <AlphabetChart/>
+                    </LearningModuleBox>
                 )}
-                <BottomDiv>
-                {isLearning &&
-                !isChecked && (
-                    <a>Check</a>
-                    ) 
-                }
-                {isLearning &&
-                isChecked && (
-                    <a>Continue</a>
-                    ) 
-                }
-                </BottomDiv>    
+                
         </ModuleSection>
     )
 }

@@ -18,6 +18,21 @@ export const Letters = [
         confidence: 0,
         learned: false,
         mastered: false,
+    }, 
+    {
+        letter: "L",
+        confidence: 0,
+        learned: false,
+        mastered: false,
+    },
+]
+
+export const LettersFull = [
+    {
+        letter: "A",
+        confidence: 0,
+        learned: false,
+        mastered: false,
     },
     {
         letter: "B",

@@ -4,6 +4,11 @@ import PropTypes from "prop-types";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCamera } from '@fortawesome/free-solid-svg-icons'
 import { Letters } from '../../config/config';
+import { toast } from 'react-toastify';
+
+
+import VideoPlayer from "./VideoPlayer";
+import FinishedLearning from "./FinishedLearning";
 
 const LearningModule = styled.div`
     display: flex;
@@ -60,9 +65,33 @@ const CapturedImage = styled.img`
     border-radius: inherit;
 `
 
+const BottomDiv = styled.div`
+    display: flex;
+    justify-content: end;
+    width: 1000px;
+
+    a {
+        padding: 8px 30px;
+        border: 1px solid var(--main-blue);
+        border-radius: 5px;
+        color: var(--main-blue);
+        cursor: pointer;
+        transition: var(--transition);
+        margin-top: 20px;
+
+        &:hover {
+            background-color: var(--main-blue);
+            color: white;
+        }
+    }
+`
+
 const LearnAlphabet = () => {
     const [currentLetterIndex, setCurrentLetterIndex] = useState(0);
     const [capturedImage, setCapturedImage] = useState(null);
+    const [isChecked, setIsChecked] = useState(false);
+    const [success, setSuccess] = useState(false);
+    const [finished, setFinished] = useState(false);
     const videoRef = useRef(null);
     let isSpaceKeyDown = false;
 
@@ -85,6 +114,43 @@ const LearnAlphabet = () => {
         
     };
 
+    const handleCheck = async () => {
+        const response = await fetch(capturedImage);
+        const blob = await response.blob();
+      
+        const formData = new FormData();
+        formData.append('file', blob);
+      
+        try {
+          const response = await fetch('http://localhost:8000/image', {
+            method: 'POST',
+            body: formData,
+          });
+          const result = await response.json();
+          console.log(result);
+
+          if (result["status"] === "failure") {
+            toast.error('Please use a hand!', { autoClose: 2000 });
+            handleRetake()
+          } else if (result["predicted_letter"] === Letters[currentLetterIndex].letter) {
+            handleSuccess(result["predicted_letter"])
+          } else if (result["predicted_letter"] !== Letters[currentLetterIndex].letter) {
+            toast.error('Incorrect! Please try again.', { autoClose: 2000 })
+            handleRetake()
+          }
+
+        } catch (error) {
+          toast.error('Please only use one hand!', { autoClose: 2000 });
+          handleRetake()
+        }
+      };
+
+      const handleSuccess = (result) => {
+        setSuccess(true)
+        toast.success('Correct! Good Job!', { autoClose: 2000 });
+      }
+      
+
     const handleKeyDown = (event) => {
         if (event.code === 'Space') {
             isSpaceKeyDown = true;
@@ -98,6 +164,19 @@ const LearnAlphabet = () => {
         }
     };
 
+    const handleContinue = () => {
+        if (currentLetterIndex === 0) {
+            nextLetter()
+            setCapturedImage(null)
+            setIsChecked(false)
+            setSuccess(false)
+            handleRetake()
+        } else {
+            setFinished(true)
+
+        }
+    }
+
 
 
     const nextLetter = () => {
@@ -106,6 +185,8 @@ const LearnAlphabet = () => {
 
     const handleRetake = () => {
         setCapturedImage(null)
+        setSuccess(false)
+        setIsChecked(false)
         const constraints = { audio: false, video: true };
 
         navigator.mediaDevices.getUserMedia(constraints)
@@ -144,21 +225,40 @@ const LearnAlphabet = () => {
 
     return(
         <LearningModule>
-            <h1>
+            {!finished && (
+                <h1>
                 Sign the letter <span>{Letters[currentLetterIndex].letter}</span>
-            </h1>
+                </h1>
+            )}
                 {!capturedImage &&
-                videoRef ? (
+                !finished && (
                     <CameraView>
                         <Video ref={videoRef} />
                         <a onClick={captureImage}><FontAwesomeIcon icon={faCamera} size="xl"/></a>
                     </CameraView>
-                ) : (
+                )} 
+                {capturedImage &&
+                !finished && (
                     <CameraView>
                         <CapturedImage src={capturedImage}/>
                         <a onClick={handleRetake}>Retake</a>
                     </CameraView>
                 )}
+                    <BottomDiv>
+                        {!isChecked &&
+                        capturedImage &&
+                        !finished &&
+                        !success && (
+                            <a onClick={handleCheck}>Check</a>
+                        )}
+                        {success &&
+                        !finished && (
+                            <a onClick={handleContinue}>Continue</a>
+                        )}
+                        {finished && (
+                            <FinishedLearning/>
+                        )}
+                    </BottomDiv>    
         </LearningModule>
     )
 }

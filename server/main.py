@@ -1,11 +1,24 @@
-from typing import Union
+import cv2
+import base64
+import asyncio
+import websockets
 from fastapi import FastAPI
-from models.letter import Letter
+from starlette.websockets import WebSocket
 
 app = FastAPI()
 
+cap = cv2.VideoCapture(0)
 
-@app.get("/process")
-async def process_letter(data: Letter):
-    return data
+async def video_stream(websocket: WebSocket):
+    print("WebSocket connection established.")
+    while True:
+        ret, frame = cap.read()
+        if not ret:
+            break
+        _, buffer = cv2.imencode('.jpg', frame)
+        jpg_as_text = base64.b64encode(buffer).decode('utf-8')
+        await websocket.send(jpg_as_text)
 
+@app.websocket("/video")
+async def video(websocket: WebSocket):
+    await video_stream(websocket)

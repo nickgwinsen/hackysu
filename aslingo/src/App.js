@@ -1,6 +1,8 @@
 import './App.css';
 import styled from 'styled-components';
 import { Routes, Route } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import { useLocation } from 'react-router-dom'
 
@@ -20,6 +22,7 @@ function App() {
   return (
     <div className="App">
         <Header isHome={isHome}/>
+        <ToastContainer position="bottom-right"/>
         <Routes>
           <Route path='/' element={<Layout/>}/>
           <Route path='/learn' element={<MainModule/>}/>
