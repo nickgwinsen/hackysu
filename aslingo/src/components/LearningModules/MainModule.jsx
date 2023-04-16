@@ -1,8 +1,15 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import {Link} from "react-router-dom";
+
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faLeftLong } from '@fortawesome/free-solid-svg-icons'
+
+// Components
 import LearnAlphabet from "./LearnAlphabet";
+import AlphabetChart from "./AlphabetChart";
+
 
 
 const ModuleSection = styled.section`
@@ -15,6 +22,13 @@ const ModuleSection = styled.section`
 `
 
 const ModuleBox = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 80%;
+`
+
+const LearningModuleBox = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -30,6 +44,7 @@ const PathBox = styled.div`
     width: 250px;
     border: 2px solid var(--main-gray);
     border-radius: 20px;
+    margin: 0 20px 0 20px;
     padding: 20px;
     cursor: pointer;
     transition: var(--transition);
@@ -47,16 +62,17 @@ const PathBox = styled.div`
     }
 
 `
+const Button1Div styled.div`
+`
 
 const ButtonDiv = styled.div`
-    margin-left: -100px;
+    margin: 0 0 0 -150px;
     display: flex;
-    flex-direction: column;
-    align-items: start;
-    justify-content: flex-start;
+    align-items: flex-start;
+    justify-content: start;
 
     a {
-        padding: 5px 20px;
+        padding: 8px 20px;
         border: 1px solid var(--main-blue);
         border-radius: 5px;
         color: var(--main-blue);
@@ -66,9 +82,7 @@ const ButtonDiv = styled.div`
         &:hover {
             background-color: var(--main-blue);
             color: white;
-        }
-
-        
+        } 
     }
 
 `
@@ -90,14 +104,13 @@ const BottomDiv = styled.div`
             background-color: var(--main-blue);
             color: white;
         }
-
-        
     }
 `
 
 const MainModule = () => {
 
     const [isChecked, setIsChecked] = useState(false)
+    const [active, setActive] = useState(false)
 
     const loadIsLearningFromLocalStorage = () => {
         const storedValue = localStorage.getItem('isLearning');
@@ -111,6 +124,15 @@ const MainModule = () => {
         localStorage.setItem('isLearning', 'true'); // Store the value as a string
         }
 
+        const handleChartClick = () => {
+            setActive(true)
+        }
+
+        const handleChartBackButton = () => {
+            setIsLearning(false);
+            localStorage.setItem('isLearning', 'false'); // Store the value as a string
+            }
+
     
     const handleBackButton = () => {
         setIsLearning(false);
@@ -119,19 +141,29 @@ const MainModule = () => {
 
     return( 
         <ModuleSection>
-                {!isLearning ? (
-                    <ModuleBox>
-                        <PathBox onClick={handleClick}>
-                        <p>Learn the alphabet in ASL!</p>
-                        </PathBox>
-                    </ModuleBox>
-                ) : (
-                    <ModuleBox>
+                {!isLearning && !active && (
+                <ModuleBox>
                         <ButtonDiv>
-                            <a onClick={handleBackButton}><FontAwesomeIcon icon={faLeftLong} size="2xl" /></a>
+                     <Link to="/"><FontAwesomeIcon icon={faLeftLong} size="2xl" /></Link>
                         </ButtonDiv>
-                         <LearnAlphabet/>
-                    </ModuleBox>
+                    <PathBox onClick={handleClick}>
+                    <p>Learn the alphabet in ASL!</p>
+                    </PathBox>
+                    <PathBox onClick={handleChartClick}>
+                    <p>ASL Alphabet Chart</p>
+                    </PathBox>
+                </ModuleBox>
+                )}
+               {isLearning && (
+                <LearningModuleBox>
+                <ButtonDiv>
+                    <a onClick={handleBackButton}><FontAwesomeIcon icon={faLeftLong} size="2xl" /></a>
+                </ButtonDiv>
+                 <LearnAlphabet/>
+            </LearningModuleBox>
+               )}
+                {active && (
+                    <AlphabetChart/>
                 )}
                 <BottomDiv>
                 {isLearning &&
