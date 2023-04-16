@@ -78,7 +78,7 @@ const Why = () => {
             
             <WhyHeader>  
                 <ImageDiv>
-                    <img src="../ILY.png"/>
+                    <img src="../O_fill.png"/>
                 </ImageDiv>  
                 <p >
                 We believe that it is important for everyone to learn sign language.

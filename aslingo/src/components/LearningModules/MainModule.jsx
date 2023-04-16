@@ -111,7 +111,6 @@ const ButtonDiv = styled.div`
 
 
 const MainModule = () => {
-
     const [active, setActive] = useState(false)
 
     const loadIsLearningFromLocalStorage = () => {

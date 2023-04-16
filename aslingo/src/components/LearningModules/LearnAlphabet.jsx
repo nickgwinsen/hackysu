@@ -12,18 +12,24 @@ import FinishedLearning from "./FinishedLearning";
 
 const LearningModule = styled.div`
     display: flex;
+
+   
+
+`
+
+const ImageWrapper = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 100px;
+`
+
+const ModuleBox = styled.div`
+    display: flex;
     flex-direction: column;
     text-align: left;
     justify-content: center;
-
-    h1 {
-        font-size: 60px;
-        margin-top: 0;
-    }
-
-    span {
-        color: var(--main-blue);
-    }
+    height: 100%;
 `
 
 const CameraView = styled.div`
@@ -84,7 +90,29 @@ const BottomDiv = styled.div`
             color: white;
         }
     }
+
 `
+
+const HeaderDiv = styled.div`
+    display: flex;
+    align-items: center;
+
+
+    h1 {
+      font-size: 60px;
+      margin-top: 0;
+  }
+
+  img {
+    height: 100px;
+    margin: 0 0 20px 20px;
+  }
+
+  span {
+      color: var(--main-blue);
+  }
+`
+
 
 const LearnAlphabet = () => {
     const [currentLetterIndex, setCurrentLetterIndex] = useState(0);
@@ -93,6 +121,7 @@ const LearnAlphabet = () => {
     const [success, setSuccess] = useState(false);
     const [finished, setFinished] = useState(false);
     const videoRef = useRef(null);
+    let stream = null;
     let isSpaceKeyDown = false;
 
 
@@ -165,7 +194,9 @@ const LearnAlphabet = () => {
     };
 
     const handleContinue = () => {
-        if (currentLetterIndex === 0) {
+      console.log(currentLetterIndex)
+      console.log(Letters.length - 1)
+        if (currentLetterIndex !== Letters.length - 1 ) {
             nextLetter()
             setCapturedImage(null)
             setIsChecked(false)
@@ -173,11 +204,9 @@ const LearnAlphabet = () => {
             handleRetake()
         } else {
             setFinished(true)
-
+            localStorage.setItem('isLearning', 'false');
         }
     }
-
-
 
     const nextLetter = () => {
         setCurrentLetterIndex((prevIndex) => (prevIndex + 1) % Letters.length);
@@ -188,6 +217,12 @@ const LearnAlphabet = () => {
         setSuccess(false)
         setIsChecked(false)
         const constraints = { audio: false, video: true };
+
+        if (stream) {
+            stream.getTracks().forEach(track => {
+              track.stop();
+            });
+          }
 
         navigator.mediaDevices.getUserMedia(constraints)
             .then(stream => {
@@ -200,8 +235,18 @@ const LearnAlphabet = () => {
     }
 
     useEffect(() => {
+        return () => {
+          if (stream) {
+            stream.getTracks().forEach((track) => {
+              track.stop();
+            });
+          }
+        };
+      }, []);
+
+    useEffect(() => {
         const constraints = { audio: false, video: true };
-        let stream = null;
+        
       
         navigator.mediaDevices.getUserMedia(constraints)
           .then(s => {
@@ -225,10 +270,20 @@ const LearnAlphabet = () => {
 
     return(
         <LearningModule>
+          {!finished && (
+            <ImageWrapper>
+            </ImageWrapper>
+          )}
+           <ModuleBox>
             {!finished && (
+              <HeaderDiv> 
                 <h1>
-                Sign the letter <span>{Letters[currentLetterIndex].letter}</span>
+              Sign the letter <span>{Letters[currentLetterIndex].letter}</span>
                 </h1>
+                <img src={Letters[currentLetterIndex].url} alt={`${Letters[currentLetterIndex].letter} Letter in sign language`} />
+
+              </HeaderDiv>
+               
             )}
                 {!capturedImage &&
                 !finished && (
@@ -260,7 +315,8 @@ const LearnAlphabet = () => {
                         {finished && (
                             <FinishedLearning/>
                         )}
-                    </BottomDiv>    
+                    </BottomDiv> 
+                   </ModuleBox>   
         </LearningModule>
     )
 }

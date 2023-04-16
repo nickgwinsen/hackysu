@@ -1,16 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import Particles from "react-tsparticles";
-import {particlesConfig} from "../../config/particles-config";
-
-
-
-
-
-
-
-
-
+import Confetti from "../../config/Confetti";
 
 const FinishedSection = styled.div`
     height: 100%;
@@ -21,21 +11,33 @@ const FinishedSection = styled.div`
     h1 {
         font-size: 80px;
         font-weight: 700;
-
+        z-index: 150;
     }
 
     span {
         color: var(--main-blue);
     }
+    
 `
+
+
+
+
+
+
+
 
 const FinishedLearning = () => {
     return(
-        <>
-        <Particles options={particlesConfig} />
-        <FinishedSection>
+     
+         <Confetti>
+            <FinishedSection>
             <h1>Congratulations! You have completed lesson one in <span>American Sign Language.</span></h1>
-        </FinishedSection> </>
+        </FinishedSection>
+        
+        </Confetti>
+        
+    
     )
 }
 

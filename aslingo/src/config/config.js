@@ -18,13 +18,50 @@ export const Letters = [
         confidence: 0,
         learned: false,
         mastered: false,
+        url: '../A_fill.png',
     }, 
     {
         letter: "L",
         confidence: 0,
         learned: false,
         mastered: false,
+        url: '../L_fill.png',
     },
+    {
+        letter: "O",
+        confidence: 0,
+        learned: false,
+        mastered: false,
+        url: '../O_fill.png',
+    },
+    {
+        letter: "I",
+        confidence: 0,
+        learned: false,
+        mastered: false,
+        url: '../I_fill.png',
+    },
+    {
+        letter: "H",
+        confidence: 0,
+        learned: false,
+        mastered: false,
+        url: '../H_fill.png',
+    },
+    {
+        letter: "Y",
+        confidence: 0,
+        learned: false,
+        mastered: false,
+        url: '../hand_fill.png',
+    },
+    {
+        letter: "K",
+        confidence: 0,
+        learned: false,
+        mastered: false,
+        url: '../K_fill.png',
+    } 
 ]
 
 export const LettersFull = [

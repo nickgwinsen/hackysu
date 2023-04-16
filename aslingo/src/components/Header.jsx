@@ -104,6 +104,7 @@ const Header = ({ isHome }) => {
 
     const smoothScroll = (e, target) => {
         e.preventDefault();
+        localStorage.setItem('isLearning', 'false');
 
         if (target === "#home") {
             const offsetTop = 0;
@@ -124,6 +125,10 @@ const Header = ({ isHome }) => {
       };
     }
 
+    const handleHome = () => {
+        localStorage.setItem('isLearning', 'false');
+    }
+
     const timeout = 2000;
     const fadeClass = isHome ? 'fade' : '';
     const fadeDownClass = isHome? 'fadedown' : '';
@@ -134,7 +139,7 @@ const Header = ({ isHome }) => {
                 <a href="#home" onClick={(e) => smoothScroll(e, '#home')}><img src="../hand_no_fill_white.png" alt="hand_no_Fill" />
                 <h1>ASLingo</h1></a>
             ) : (
-                <Link to="/"><img src="../hand_no_fill_white.png" alt="hand_no_Fill" />
+                <Link to="/" onClick={handleHome}><img src="../hand_no_fill_white.png" alt="hand_no_Fill" />
                 <h1>ASLingo</h1></Link>
             )}
         </HeaderLogo>

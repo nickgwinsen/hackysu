@@ -43,6 +43,20 @@ const AboutHeader = styled.div`
    }
 `
 
+const ImageDiv =styled.div`
+display: flex;
+align-items: center;
+justify-content: center;
+
+img{
+    height: 400px;
+    margin-left: 200px;
+    margin-bottom: 100px;
+
+}
+
+`
+
 
 const About = () => {
     return(
@@ -57,6 +71,9 @@ const About = () => {
                     Using our video capture system, users will receive feedback to determine if they performed the correct sign. 
                     In addition, the site keeps track of the users progress and ensures the user masters each sign before advancing.  
                 </p>
+                <ImageDiv>
+                    <img src="../ILY.png"/>
+                </ImageDiv>  
         </AboutHeader>
         </AboutGrid>
             
