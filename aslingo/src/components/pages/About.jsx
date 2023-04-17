@@ -13,8 +13,8 @@ const AboutSection = styled.section`
     display: flex;
     align-items: center;
     height: 1000px;
-    width: 100%
-    position: absoulute;
+    width: 100%;
+    position: absolute;
     margin: 0 -150px 0 -150px;
     background-color: var(--main-blue);
 
@@ -65,7 +65,7 @@ const About = () => {
         <h1>About Us</h1>
             <AboutHeader>    
                 <p >
-                    At ASLingo, we are determined to provide the best American Sign Language, ASL, training possible. 
+                    At FluentSign, we are determined to provide the best American Sign Language, ASL, training possible.
                     We are young, motivated software developers looking to make a difference in the world. We are passionate 
                     about promoting communication, inclusivity, and accessibility for deaf and hard of hearing individuals. 
                     Using our video capture system, users will receive feedback to determine if they performed the correct sign.  

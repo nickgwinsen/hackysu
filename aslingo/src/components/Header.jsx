@@ -34,7 +34,7 @@ const HeaderDiv = styled.div`
 `
 
 const HeaderLogo = styled.div`
-    display flex;
+    display: flex;
     flex: 1;
     align-items: center;
 
@@ -137,10 +137,10 @@ const Header = ({ isHome }) => {
         <HeaderLogo>
             {isHome ? (
                 <a href="#home" onClick={(e) => smoothScroll(e, '#home')}><img src="../hand_no_fill_white.png" alt="hand_no_Fill" />
-                <h1>ASLingo</h1></a>
+                <h1>FluentSign</h1></a>
             ) : (
                 <Link to="/" onClick={handleHome}><img src="../hand_no_fill_white.png" alt="hand_no_Fill" />
-                <h1>ASLingo</h1></Link>
+                <h1>FluentSign</h1></Link>
             )}
         </HeaderLogo>
     )

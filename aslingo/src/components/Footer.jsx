@@ -19,14 +19,16 @@ const Footer = () => {
       justify-content: center;
       
       p {
-        font-size: 20px;
+        font-size: 14px;
         color: black;
-        margin-right: 40px;
+        border-right: 1px solid black;
+        padding-right: 20px;
       }
 
       a {
         color: black;
         cursor: pointer;
+        padding-left: 20px;
         text-decoration: none;
         transition: var(--transition);
 
@@ -40,8 +42,8 @@ const Footer = () => {
 
     return (
         <Footer>
-            <p>ASLingo {year}</p>
-            <a href="https://github.com/nickgwinsen/hackysu.git" target="_blank"><FontAwesomeIcon icon={faGithub} size="2xl" /></a>
+            <p>Copyright &copy; FluentSign. {year} All rights reserved</p>
+            <a href="https://github.com/nickgwinsen/hackysu.git" target="_blank"><FontAwesomeIcon icon={faGithub} size="xl" /></a>
         </Footer>
     )
 }

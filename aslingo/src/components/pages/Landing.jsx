@@ -116,7 +116,7 @@ const Landing = () => {
                         {isMounted && (
                             <CSSTransition classNames={fadeUpClass} timeout={timeout}>
                                 <div>
-                                    <h2>Welcome to ASLingo</h2>
+                                    <h2>Welcome to FluentSign</h2>
                                     <span style={{ transitionDelay: "100ms" }}>Where you can learn American Sign Language!</span>
                                 </div>
                             </CSSTransition>
