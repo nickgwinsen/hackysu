@@ -1,6 +1,8 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from api.api import router
+from database import SessionLocal, engine
+
 
 app = FastAPI()
 
@@ -20,4 +22,10 @@ app.add_middleware(
             allow_headers=["*"]
         )
 
+def get_database_session():
+    try:
+        db = SessionLocal()
+        yield db
+    finally:
+        db.close()
 
