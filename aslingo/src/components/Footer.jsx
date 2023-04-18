@@ -21,8 +21,6 @@ const Footer = () => {
       p {
         font-size: 14px;
         color: black;
-        border-right: 1px solid black;
-        padding-right: 20px;
       }
 
       a {
@@ -50,7 +48,6 @@ const Footer = () => {
     return (
         <Footer>
             <p>Copyright &copy; FluentSign. {year} All rights reserved</p>
-            <a href="https://github.com/nickgwinsen/hackysu.git" target="_blank"><FontAwesomeIcon icon={faGithub} size="xl" /></a>
         </Footer>
     )
 }
