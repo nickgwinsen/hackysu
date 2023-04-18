@@ -77,18 +77,7 @@ async def process_video(file: UploadFile = File(...)):
         cv2.putText(frame, predicted_character, (x1, y1 - 10), cv2.FONT_HERSHEY_SIMPLEX, 1.3, (0, 0, 0), 3,
                     cv2.LINE_AA)
         
-
-
-        # Add this line to fix the CORS error
-
-        headers = {
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Methods": "POST",
-        "Access-Control-Allow-Headers": "Content-Type",
-         }
-    
-
         print(predicted_character)
-        return JSONResponse(content={"predicted_letter": predicted_character}, headers=headers)
+        return {"predicted_letter": predicted_character}
 
     return {"status": "failure", "message": "No hands detected in the image."}
