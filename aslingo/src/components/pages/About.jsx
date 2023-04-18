@@ -84,7 +84,7 @@ export const InfoContent = styled.div`
              }
     }
     
-    @media (max-width: 1080px) {
+    @media (max-width: 1280px) {
         margin-top: 100px;
     
          p {

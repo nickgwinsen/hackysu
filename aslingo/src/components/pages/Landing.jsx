@@ -8,16 +8,13 @@ import GalaxyBackground from "../../config/GalaxyBackround";
 
 const LandingSection = styled.section`
     margin: 0 auto;
-    padding: 100px 0 0 0;
     
-    @media (max-width: 450px) {
-        padding: 50px 0 0 0;
-    }
    `
 const Inner = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: space-around;
     height: 100vh;
     
 `
@@ -26,7 +23,7 @@ const LandingGrid = styled.div`
     display: grid;
     width: 100%;
     align-items: center;
-    justify-content: space-around;
+    justify-content: space-between;
     grid-template-columns: 2fr 2fr;
     
     @media (max-width: 450px) {
