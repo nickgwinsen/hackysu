@@ -11,7 +11,7 @@ router = APIRouter()
 @router.post("/process/image")
 async def process_image(file: UploadFile = File(...)):
 
-    model_dict = pickle.load(open('./model.p', 'rb'))
+    model_dict = pickle.load(open('../model.p', 'rb'))
     model = model_dict['model']
 
     mp_hands = mp.solutions.hands
