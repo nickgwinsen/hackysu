@@ -43,7 +43,6 @@ const LandingHeader = styled.div`
     flex-direction: column;
     align-items: center;
     text-align: center;
-    margin-bottom: 500px;
 
     h2 {
         font-weight: 700;
