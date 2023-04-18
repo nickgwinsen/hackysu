@@ -121,17 +121,15 @@ const LearnAlphabet = () => {
     const [isChecked, setIsChecked] = useState(false);
     const [success, setSuccess] = useState(false);
     const [finished, setFinished] = useState(false);
-    const videoRef = useRef(null);
 
     const handleCheck = async () => {
         const response = await fetch(capturedImage);
         const blob = await response.blob();
-      
         const formData = new FormData();
         formData.append('file', blob);
       
         try {
-          const response = await fetch('http://localhost:8000/image', {
+          const response = await fetch('http://localhost:8000/process/image', {
             method: 'POST',
             body: formData,
           });
@@ -197,7 +195,6 @@ const LearnAlphabet = () => {
     const capture = React.useCallback(
         () => {
             const imageSrc = webcamRef.current.getScreenshot();
-            console.log(imageSrc)
             setCapturedImage(imageSrc)
         },
         [webcamRef]
