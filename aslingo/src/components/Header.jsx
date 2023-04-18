@@ -1,33 +1,44 @@
 import React, { useState, useEffect } from 'react';
 import {Link} from "react-router-dom";
-import {CSSTransition, Transition, TransitionGroup} from 'react-transition-group';
+import {CSSTransition, TransitionGroup} from 'react-transition-group';
 import PropTypes from "prop-types";
 import styled from 'styled-components';
 import { navLinks } from '../config/config';
+import {smoothScroll} from "../hooks/smoothScroll";
+import Menu from "./Menu";
 
 
 
 const HeaderWrapper = styled.header`
     display: flex;
-    width: 100%;
     position: fixed;
-    justify-content: center;
     background-color: var(--main-blue);
     top: 0;
-    right: 0;
-    left: 0;
-    z-index: 9;
-    color: white;
-    transition: all 0.25s cubic-bezier(0.645, 0.045, 0.355, 1);
+    color: white;  
+    justify-content: space-between;
+    align-items: center;
+    z-index: 999;
+    transition: var(--transition);
+    width: 100%;
+    height: 100px;
+    filter: none !important;
+    pointer-events: auto !important;
+    user-select: auto !important;
+    
+   
 `
 
 const HeaderDiv = styled.div`
     display: flex;
-    height: 80px;
-    width: 80%;
+    width: 100%;
     align-items: center;
-    padding: 4px;
-    justify-content: center;
+    justify-content: space-between;
+    margin: 0 50px;
+
+    
+    @media (max-width: 768px) {
+        margin: 0 20px;
+    }
 
     
 
@@ -35,23 +46,45 @@ const HeaderDiv = styled.div`
 
 const HeaderLogo = styled.div`
     display: flex;
-    flex: 1;
     align-items: center;
+
 
     a {
         display: flex;
         text-decoration: none;
         align-items: center;
+        text-align: center;
         justify-content: center;
     }
 
     img {
-        margin: 0 10px 0 20px;
-        height: 60px;
+        margin: 0 10px 0 0;
+        width: 60px;
     }
 
     h1 {
         color: white;
+        margin: 0;
+    }
+    
+    @media (max-width: 768px) {
+        h1 {
+            font-size: 30px;
+        }
+        
+        img { 
+            width: 50px;
+        }
+    }
+    
+    @media (max-width: 450px) {
+         h1 {
+            font-size: 26px;
+        }
+        
+        img { 
+            width: 40px;
+        }
     }
 
 `
@@ -59,6 +92,7 @@ const HeaderLinks = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-between;
+
 
 
     ul {
@@ -86,6 +120,17 @@ const HeaderLinks = styled.div`
             color: var(--main-light-gray);
         }
     }
+    
+    @media (max-width: 1024px) {
+        a {
+        font-size: 18px;
+        }
+        
+    }
+    
+    @media (max-width: 768px) {
+        display: none;
+    }
 `
 
 
@@ -102,28 +147,6 @@ const Header = ({ isHome }) => {
         }
     }, [])
 
-    const smoothScroll = (e, target) => {
-        e.preventDefault();
-        localStorage.setItem('isLearning', 'false');
-
-        if (target === "#home") {
-            const offsetTop = 0;
-        
-            window.scrollTo({
-            top: offsetTop,
-            behavior: 'smooth',
-            });
-        } else {
-            const targetElement = document.querySelector(target);
-            const rect = targetElement.getBoundingClientRect();
-            const offsetTop = rect.top + window.pageYOffset - 80;
-
-            window.scrollTo({
-                top: offsetTop,
-                behavior: 'smooth',
-            });
-      };
-    }
 
     const handleHome = () => {
         localStorage.setItem('isLearning', 'false');
@@ -172,6 +195,13 @@ const Header = ({ isHome }) => {
                         </TransitionGroup>
                     </ul>
                 </HeaderLinks>
+                <TransitionGroup component={null}>
+                    {isMounted && (
+                        <CSSTransition classNames={fadeDownClass} timeout={300}>
+                            <Menu style={{ transitionDelay: `${isHome ? 100 : 0}ms` }}/>
+                        </CSSTransition>
+                    )}
+                </TransitionGroup>
             </HeaderDiv>
         </HeaderWrapper>
         )
