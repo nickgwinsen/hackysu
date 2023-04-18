@@ -26,7 +26,7 @@ const LandingGrid = styled.div`
     display: grid;
     width: 100%;
     align-items: center;
-    justify-content: center;
+    justify-content: space-around;
     grid-template-columns: 2fr 2fr;
     
     @media (max-width: 450px) {
