@@ -1,82 +1,137 @@
 import React from "react";
 import styled from "styled-components";
 
-const AboutGrid = styled.div`
-    display: flex;
-    height: 100%;
-    width: 100%;
-    margin: 0 150px 0 150px;
-    flex-direction: column;
-`
 
-const AboutSection = styled.section`
-    display: flex;
-    align-items: center;
-    height: 1000px;
-    width: 100%;
-    position: absolute;
-    margin: 0 -150px 0 -150px;
+export const InfoSection = styled.section`
+    margin: 0 auto;
+    padding: 100px 0;
     background-color: var(--main-blue);
-
-    h1 {
-        font-weight: 700;
-        font-size: 80px;
-        width: 50%;
-        margin-bottom: 0;
-        margin-left: 200px;
-    }
-
 `
-const AboutHeader = styled.div`
+
+export const InfoInner = styled.div`
+      height: 100vh;
+      padding: 0 50px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      
+        h1 {
+        font-weight: 700;
+        font-size: 120px;
+        align-self: center;
+        margin-bottom: 50px;
+    }
+    
+    @media (max-width: 2500px) {
+        h1 {
+        font-size: 80px;
+        }
+    }
+    
+    @media (max-width: 768px) {
+        padding: 0 20px;
+        
+        h1 {
+        font-size: 60px;
+        }
+    }
+    
+    
+    
+    
+    
+    
+      
+`
+
+export const InfoContent = styled.div`
     display: flex;
     flex-direction: row;
     text-align: left;
+    justify-content: space-around;
+    align-items: center;
+    margin-top: 200px;
 
 
     p {
     font-weight: 600;
     line-height: 1.3;
-    font-size: 35px;
-    margin: 50px 50px 10px 0;
+    font-size: 50px;
     color: white;
-    max-width: 50%;
+    max-width: 60%;
    }
-`
-
-const ImageDiv =styled.div`
-display: flex;
-align-items: center;
-justify-content: center;
-
-img{
-    height: 400px;
-    margin-left: 200px;
-    margin-bottom: 100px;
-
+   
+   img{
+    width: 400px;
 }
 
+    @media (max-width: 2500px) {
+            p {
+                font-size: 40px;
+            }
+            img{
+                width: 400px;
+             }
+    
+        }
+        
+        @media (max-width: 1800px) {
+         p {
+                font-size: 35px;
+            }
+            img{
+                width: 300px;
+             }
+    }
+    
+    @media (max-width: 1080px) {
+        margin-top: 100px;
+    
+         p {
+                font-size: 28px;
+            }
+            img{
+                width: 200px;
+             }
+    }
+    
+    @media (max-width: 800px) {
+        flex-direction: column;
+        margin-top: 50px;
+    }
+    
+    @media (max-width: 768px) {
+        p {
+        font-size: 24px;
+          
+      }
+    }
+    
+    @media (max-width: 450px) {
+        p {
+        font-size: 20px;
+          max-width: 100%;
+      }
+    }
 `
 
 
 const About = () => {
     return(
-    <AboutSection id="about">
-        <AboutGrid>
-        <h1>About Us</h1>
-            <AboutHeader>    
-                <p >
-                    At FluentSign, we are determined to provide the best American Sign Language, ASL, training possible.
-                    We are young, motivated software developers looking to make a difference in the world. We are passionate 
-                    about promoting communication, inclusivity, and accessibility for deaf and hard of hearing individuals. 
-                    Using our video capture system, users will receive feedback to determine if they performed the correct sign.  
-                </p>
-                <ImageDiv>
-                    <img src="../ILY.png"/>
-                </ImageDiv>  
-        </AboutHeader>
-        </AboutGrid>
-            
-    </AboutSection>
+    <InfoSection id="about">
+        <InfoInner>
+                <h1>About Us</h1>
+                <InfoContent>
+                    <p >
+                        At FluentSign, we are determined to provide the best American Sign Language, ASL, training possible.
+                        We are young, motivated software developers looking to make a difference in the world. We are passionate
+                        about promoting communication, inclusivity, and accessibility for deaf and hard of hearing individuals.
+                        Using our video capture system, users will receive feedback to determine if they performed the correct sign.
+                    </p>
+                        <img src="../ILY.png" alt="I love you sign"/>
+                </InfoContent>
+        </InfoInner>
+    </InfoSection>
     )
 }
 

@@ -7,18 +7,34 @@ import GalaxyBackground from "../../config/GalaxyBackround";
 
 
 const LandingSection = styled.section`
+    margin: 0 auto;
+    padding: 100px 0 0 0;
+    
+    @media (max-width: 450px) {
+        padding: 50px 0 0 0;
+    }
+   `
+const Inner = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    height: 1000px;
-    background-color: white;
-   `
+    height: 100vh;
+    
+`
 
 const LandingGrid = styled.div`
     display: grid;
-    height: 100%;
     width: 100%;
-    grid-template-columns: 3fr 2fr;
+    align-items: center;
+    justify-content: center;
+    grid-template-columns: 2fr 2fr;
+    
+    @media (max-width: 450px) {
+        display: flex;
+        flex-direction: column;
+    }
+    
+    
 
 `
 
@@ -27,12 +43,12 @@ const LandingHeader = styled.div`
     flex-direction: column;
     align-items: center;
     text-align: center;
-    margin-bottom: 50px;
+    margin-bottom: 500px;
 
     h2 {
         font-weight: 700;
-        font-size: 80px;
-        margin: 50px 50px 10px 0;
+        font-size: 120px;
+        margin: 100px 0 10px 0;
     }
 
     span {
@@ -40,6 +56,29 @@ const LandingHeader = styled.div`
         font-size: 70px;
         color: var(--main-blue);
     }
+    
+    @media (max-width: 1400px) {
+        h2 {
+            font-size: 80px;
+        }
+        
+        span {
+            font-size: 50px;
+        }
+    }
+    
+     @media (max-width: 450px) {
+        margin-bottom: 100px;
+        
+        h2 {
+            font-size: 50px;
+        }
+        
+        span {
+            font-size: 20px;
+        }
+    }
+    
 `
 
 const ImageDiv = styled.div`
@@ -48,8 +87,29 @@ const ImageDiv = styled.div`
     justify-content: center;
 
     img {
-        height: 500px;
+        width: 500px;
     }
+    
+    @media (max-width: 1400px) {
+        img {
+            width: 300px;
+        }
+    }
+    
+    @media (max-width: 1080px) {
+        img {
+            width: 300px;
+        }
+    }
+    
+     @media (max-width: 450px) {
+        margin-bottom: 100px;
+        img {
+            width: 200px;
+        }
+    }
+    
+    
     
     
 `
@@ -62,15 +122,15 @@ const ButtonDiv = styled.div`
     a {
         display: flex;
         background-color: var(--main-blue);
-        font-size: 32px;
+        font-size: 40px;
         color: white;
-        padding: 10px; 
+       
         border-radius: 5px;
         cursor: pointer; 
-        height: 80px;
+        height: 100px;
         text-decoration: none;
         letter-spacing: 0.1em;
-        width: 400px;
+        width: 600px;
         text-align: center;
         align-items: center;
         justify-content: center;
@@ -79,6 +139,20 @@ const ButtonDiv = styled.div`
 
         &:hover {
             background-color: var(--main-blue-darker);
+        }
+    }
+    
+    @media (max-width: 1400px) {
+        a {
+            width: 400px;
+            font-size: 32px;
+        }
+    }
+    
+    @media (max-width: 1080px) {
+        a {
+            width: 300px;
+            font-size: 24px;
         }
     }
 
@@ -110,42 +184,43 @@ const Landing = () => {
     
     return(
             <LandingSection id="home">
-                <GalaxyBackground>
-                <LandingHeader>
-                    <TransitionGroup component={null}>
-                        {isMounted && (
-                            <CSSTransition classNames={fadeUpClass} timeout={timeout}>
-                                <div>
-                                    <h2>Welcome to FluentSign</h2>
-                                    <span style={{ transitionDelay: "100ms" }}>Where you can learn American Sign Language!</span>
-                                </div>
-                            </CSSTransition>
-                        
-                        )}
-                    </TransitionGroup>
-                </LandingHeader>
-                <LandingGrid>
-                    <ImageDiv>
-                        <TransitionGroup component={null}>        
+                <GalaxyBackground/>
+                <Inner>
+                        <LandingHeader>
+                            <TransitionGroup component={null}>
                                 {isMounted && (
                                     <CSSTransition classNames={fadeUpClass} timeout={timeout}>
-                                        <img src="../hand_fill.png" alt="hand filled" />
+                                        <div>
+                                            <h2>Welcome to FluentSign</h2>
+                                            <span style={{ transitionDelay: "100ms" }}>Where you can learn American Sign Language!</span>
+                                        </div>
                                     </CSSTransition>
+
                                 )}
-                        </TransitionGroup>
-                    </ImageDiv>
-                    <ButtonDiv>
-                        <TransitionGroup component={null}>
-                            {isMounted && (
-                                <CSSTransition classNames={fadeUpClass} timeout={timeout}>
-                                    <Link to="/learn" onClick={handeClick}>Start Learning!</Link>
-                                </CSSTransition>
-                            )}
-                        </TransitionGroup>
-                    </ButtonDiv>
-                </LandingGrid>
-                </GalaxyBackground>  
-            </LandingSection>  
+                            </TransitionGroup>
+                        </LandingHeader>
+                        <LandingGrid>
+                            <ImageDiv>
+                                <TransitionGroup component={null}>
+                                    {isMounted && (
+                                        <CSSTransition classNames={fadeUpClass} timeout={timeout}>
+                                            <img src="../hand_fill.png" alt="hand filled" />
+                                        </CSSTransition>
+                                    )}
+                                </TransitionGroup>
+                            </ImageDiv>
+                            <ButtonDiv>
+                                <TransitionGroup component={null}>
+                                    {isMounted && (
+                                        <CSSTransition classNames={fadeUpClass} timeout={timeout}>
+                                            <Link to="/learn" onClick={handeClick}>Start Learning!</Link>
+                                        </CSSTransition>
+                                    )}
+                                </TransitionGroup>
+                            </ButtonDiv>
+                        </LandingGrid>
+                </Inner>
+            </LandingSection>
          
     )
 }

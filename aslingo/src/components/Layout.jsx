@@ -10,19 +10,19 @@ export const Main = styled.main`
 
   margin: 0 auto;
   width: 100%;
-  max-width: 1600px;
+  max-width: 100%;
   min-height: 100vh;
-  padding: 100px 50px;
 
 `
 
 const Layout = () => {
     return(
-        <Main>
+        <>
             <Landing/>
             <About/>
             <Why/>
-        </Main>
+        </>
+
     )
 }
 

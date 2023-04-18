@@ -36,6 +36,13 @@ const Footer = () => {
             color: var(--main-blue)
         }
       }
+     
+      @media (max-width: 450px) {
+        p {
+            font-size: 12px;
+        }
+      }
+      
 
     `
 

@@ -83,11 +83,11 @@ const GalaxyBackground = (props) => {
   };
 
   return (
-    <div style={{ backgroundColor: bgColor, height: '100vh', position: 'relative', width: '100%' }}>
-      <svg style={{ opacity: opacity, position: 'absolute', pointerEvents: 'none', width: '100%', height: '100%' }} id="galaxy" ref={galaxy} >
+    <div style={{ backgroundColor: "transparent", height: '100vh', position: 'absolute', width: '100%', pointerEvents: 'none' }}>
+      <svg style={{ opacity: '100%', position: 'absolute', pointerEvents: 'none', width: '100%', height: '100%' }} id="galaxy" ref={galaxy} >
         <g id="stars" style={{ width: '100%', height: '100%' }} ref={svgGroup} ></g>
       </svg>
-      <div style={{ zIndex: 10 }}>
+      <div style={{} }>
         {props.children}
       </div>
     </div>
