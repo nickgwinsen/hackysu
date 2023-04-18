@@ -8,7 +8,7 @@ import Why from "./pages/Why";
 
 export const Main = styled.main`
 
-  margin: 0 auto;
+  margin: 100px auto;
   width: 100%;
   max-width: 100%;
   min-height: 100vh;

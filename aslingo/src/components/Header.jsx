@@ -196,7 +196,8 @@ const Header = ({ isHome }) => {
                     </ul>
                 </HeaderLinks>
                 <TransitionGroup component={null}>
-                    {isMounted && (
+                    {isHome &&
+                        isMounted && (
                         <CSSTransition classNames={fadeDownClass} timeout={300}>
                             <Menu style={{ transitionDelay: `${isHome ? 100 : 0}ms` }}/>
                         </CSSTransition>

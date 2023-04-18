@@ -18,14 +18,14 @@ export const Letters = [
         confidence: 0,
         learned: false,
         mastered: false,
-        url: '../A_fill.png',
+        url: '../../../A_fill.png',
     }, 
     {
         letter: "L",
         confidence: 0,
         learned: false,
         mastered: false,
-        url: '../L_fill.png',
+        url: '../../../L_fill.png',
     },
     {
         letter: "O",

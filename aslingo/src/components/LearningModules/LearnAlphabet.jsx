@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCamera } from '@fortawesome/free-solid-svg-icons'
 import { Letters } from '../../config/config';
+import Webcam from "react-webcam";
 import { toast } from 'react-toastify';
 
 
@@ -121,27 +122,6 @@ const LearnAlphabet = () => {
     const [success, setSuccess] = useState(false);
     const [finished, setFinished] = useState(false);
     const videoRef = useRef(null);
-    let stream = null;
-    let isSpaceKeyDown = false;
-
-
-
-    const captureImage = () => {
-        if (capturedImage !== null) {
-            handleRetake()
-        }
-        const canvas = document.createElement('canvas');
-        canvas.width = videoRef.current.videoWidth;
-        canvas.height = videoRef.current.videoHeight;
-
-        const ctx = canvas.getContext('2d');
-        ctx.drawImage(videoRef.current, 0, 0, canvas.width, canvas.height);
-
-        const dataURL = canvas.toDataURL('image/jpeg');
-
-        setCapturedImage(dataURL);
-        
-    };
 
     const handleCheck = async () => {
         const response = await fetch(capturedImage);
@@ -178,20 +158,6 @@ const LearnAlphabet = () => {
         setSuccess(true)
         toast.success('Correct! Good Job!', { autoClose: 2000 });
       }
-      
-
-    const handleKeyDown = (event) => {
-        if (event.code === 'Space') {
-            isSpaceKeyDown = true;
-        }
-    };
-
-    const handleKeyUp = (event) => {
-        if (event.code === 'Space' && isSpaceKeyDown) {
-            isSpaceKeyDown = false;
-            captureImage();
-        }
-    };
 
     const handleContinue = () => {
       console.log(currentLetterIndex)
@@ -216,57 +182,26 @@ const LearnAlphabet = () => {
         setCapturedImage(null)
         setSuccess(false)
         setIsChecked(false)
-        const constraints = { audio: false, video: true };
-
-        if (stream) {
-            stream.getTracks().forEach(track => {
-              track.stop();
-            });
-          }
-
-        navigator.mediaDevices.getUserMedia(constraints)
-            .then(stream => {
-                videoRef.current.srcObject = stream;
-                videoRef.current.play();
-            })
-            .catch(error => {
-                console.error(error);
-            });
     }
 
-    useEffect(() => {
-        return () => {
-          if (stream) {
-            stream.getTracks().forEach((track) => {
-              track.stop();
-            });
-          }
-        };
-      }, []);
 
-    useEffect(() => {
-        const constraints = { audio: false, video: true };
-        
-      
-        navigator.mediaDevices.getUserMedia(constraints)
-          .then(s => {
-            stream = s;
-            videoRef.current.srcObject = stream;
-            videoRef.current.play();
-          })
-          .catch(error => {
-            console.error(error);
-          });
-      
-        return () => {
-          if (stream) {
-            stream.getTracks().forEach(track => {
-              track.stop();
-            });
-          }
-        };
-      }, []);
-      
+
+    const videoConstraints = {
+        width: 960,
+        height: 540,
+        facingMode: "user"
+    };
+
+    const webcamRef = React.useRef(null);
+
+    const capture = React.useCallback(
+        () => {
+            const imageSrc = webcamRef.current.getScreenshot();
+            console.log(imageSrc)
+            setCapturedImage(imageSrc)
+        },
+        [webcamRef]
+    );
 
     return(
         <LearningModule>
@@ -288,8 +223,16 @@ const LearnAlphabet = () => {
                 {!capturedImage &&
                 !finished && (
                     <CameraView>
-                        <Video ref={videoRef} />
-                        <a onClick={captureImage}><FontAwesomeIcon icon={faCamera} size="xl"/></a>
+                        <Webcam
+                            audio={false}
+                            height={540}
+                            ref={webcamRef}
+                            screenshotFormat="image/jpeg"
+                            width={960}
+                            videoConstraints={videoConstraints}
+                            style={{borderRadius: 'inherit'}}
+                        />
+                        <a onClick={capture}><FontAwesomeIcon icon={faCamera} size="xl"/></a>
                     </CameraView>
                 )} 
                 {capturedImage &&

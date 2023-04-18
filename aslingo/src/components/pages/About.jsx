@@ -128,7 +128,7 @@ const About = () => {
                         about promoting communication, inclusivity, and accessibility for deaf and hard of hearing individuals.
                         Using our video capture system, users will receive feedback to determine if they performed the correct sign.
                     </p>
-                        <img src="../ILY.png" alt="I love you sign"/>
+                        <img src="../../../ILY.png" alt="I love you sign"/>
                 </InfoContent>
         </InfoInner>
     </InfoSection>

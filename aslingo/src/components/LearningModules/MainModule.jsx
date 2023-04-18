@@ -13,26 +13,27 @@ import AlphabetChart from "./AlphabetChart";
 
 
 const ModuleSection = styled.section`
-    display: flex;
-    flex-direction: column;
-    height: 1000px;
-    justify-content: center;
-    align-items: center;
+    margin: 0 auto;
+    padding: 100px 0 0 0;
     
 `
 
 const ModuleBox = styled.div`
     display: flex;
     align-items: center;
-    justify-content: center;
-    height: 80%;
+    justify-content: space-around;
+    height: 100vh;
+    
+    @media(max-width: 820px) {
+        flex-direction: column;
+    }
 `
 
 const LearningModuleBox = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: center;
-    height: 80%;
+    
 `
 
 const PathBox = styled.div`
@@ -44,7 +45,6 @@ const PathBox = styled.div`
     width: 250px;
     border: 2px solid var(--main-gray);
     border-radius: 20px;
-    margin: 0 90px 0 136px ;
     padding: 20px;
     cursor: pointer;
     transition: var(--transition);
@@ -81,6 +81,15 @@ const Button1Div = styled.div`
             color: white;
         } 
     }
+    
+    @media(max-width: 820px) {
+        margin: 0;
+        align-items: center;
+        
+        
+    }
+    
+    
 
 
 
@@ -104,6 +113,11 @@ const ButtonDiv = styled.div`
             background-color: var(--main-blue);
             color: white;
         } 
+    }
+    
+    @media(max-width: 820px) {
+        margin: 0;
+        align-items: center;
     }
 
 `
@@ -148,32 +162,36 @@ const MainModule = () => {
         <ModuleSection>
                 {!isLearning && !active && (
                 <ModuleBox>
-                        <Button1Div>
-                     <Link to="/"><FontAwesomeIcon icon={faLeftLong} size="2xl" /></Link>
-                        </Button1Div>
                     <PathBox onClick={handleClick}>
                     <p>Learn the alphabet in ASL!</p>
                     </PathBox>
                     <PathBox onClick={handleChartClick}>
                     <p>ASL Alphabet Chart</p>
                     </PathBox>
+                    <Button1Div>
+                        <Link to="/"><FontAwesomeIcon icon={faLeftLong} size="2xl" /></Link>
+                    </Button1Div>
                 </ModuleBox>
                 )}
                {isLearning && (
-                <LearningModuleBox>
-                <ButtonDiv>
-                    <a onClick={handleBackButton}><FontAwesomeIcon icon={faLeftLong} size="2xl" /></a>
-                </ButtonDiv>
-                 <LearnAlphabet/>
-            </LearningModuleBox>
+                   <ModuleBox>
+                       <LearningModuleBox>
+                           <ButtonDiv>
+                               <a onClick={handleBackButton}><FontAwesomeIcon icon={faLeftLong} size="2xl" /></a>
+                           </ButtonDiv>
+                           <LearnAlphabet/>
+                       </LearningModuleBox>
+                   </ModuleBox>
                )}
                 {active && (
+                    <ModuleBox>
                     <LearningModuleBox>
                         <ButtonDiv>
                             <a onClick={handleBackButton2}><FontAwesomeIcon icon={faLeftLong} size="2xl" /></a>
                         </ButtonDiv>
                         <AlphabetChart/>
                     </LearningModuleBox>
+                    </ModuleBox>
                 )}
                 
         </ModuleSection>
