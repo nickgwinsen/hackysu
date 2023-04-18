@@ -3,7 +3,6 @@ import cv2
 import mediapipe as mp
 import numpy as np
 from fastapi import APIRouter, File, UploadFile
-from fastapi.responses import JSONResponse
 
 router = APIRouter()
 
