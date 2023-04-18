@@ -7,6 +7,7 @@ from fastapi.responses import JSONResponse
 
 router = APIRouter()
 
+# API Endpoint responsible for processing an image and giving a response
 @router.post("/process/image")
 async def process_image(file: UploadFile = File(...)):
 
@@ -24,9 +25,6 @@ async def process_image(file: UploadFile = File(...)):
     contents = await file.read()
     np_array = np.fromstring(contents, np.uint8)
     frame = cv2.imdecode(np_array, cv2.IMREAD_COLOR)
-
-    
-
 
     H, W, _ = frame.shape
 
@@ -77,7 +75,6 @@ async def process_image(file: UploadFile = File(...)):
         cv2.putText(frame, predicted_character, (x1, y1 - 10), cv2.FONT_HERSHEY_SIMPLEX, 1.3, (0, 0, 0), 3,
                     cv2.LINE_AA)
         
-        print(predicted_character)
         return {"predicted_letter": predicted_character}
 
     return {"status": "failure", "message": "No hands detected in the image."}
