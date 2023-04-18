@@ -5,7 +5,7 @@
 
 To have the project fully functioning, the backend and frontend must be running at the same time.
 
-**Back-end:**
+###Back-end (ML Model)
 First, cd into the server folder.
 All python packages must also be installed to have the fully functioning project as well.
 
@@ -24,7 +24,7 @@ Once all packages are installed, run the command:
 
 uvicorn main:app --reload
 
-**Front-end**
+###Front-end (React web-app)
 
 cd into the aslingo folder.
 Then,
