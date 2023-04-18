@@ -11,13 +11,13 @@ All python packages must also be installed to have the fully functioning project
 
 Packages used:
 mediapipe (Requires compatible python version)
-opencv-python
-tensorflow
-matplotlib
-numpy
-scikit-learn
-uvicorn
-fastapi
+opencv-python,
+tensorflow,
+matplotlib,
+numpy,
+scikit-learn,
+uvicorn,
+fastapi,
 python-multipart
 
 Once all packages are installed, run the command:
