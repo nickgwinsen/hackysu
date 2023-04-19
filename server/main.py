@@ -39,7 +39,7 @@ async def app_init():
         ]
     )
 
-    print("initialize application services")
+    print("initialize application services db connected")
     CheckSystemLogs.pass_logs("Initialize application services", log_level=2)
 
 
