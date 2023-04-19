@@ -25,10 +25,12 @@ const LandingGrid = styled.div`
     align-items: center;
     justify-content: space-between;
     grid-template-columns: 2fr 2fr;
+    padding-bottom: 200px;
     
     @media (max-width: 450px) {
         display: flex;
         flex-direction: column;
+        padding-bottom: 100px;
     }
     
     
@@ -83,7 +85,7 @@ const ImageDiv = styled.div`
     justify-content: center;
 
     img {
-        width: 500px;
+        width: 400px;
     }
     
     @media (max-width: 1400px) {
@@ -95,6 +97,12 @@ const ImageDiv = styled.div`
     @media (max-width: 1080px) {
         img {
             width: 300px;
+        }
+    }
+
+    @media (max-width: 630px) {
+        img {
+            width: 200px;
         }
     }
     
@@ -120,7 +128,7 @@ const ButtonDiv = styled.div`
         background-color: var(--main-blue);
         font-size: 40px;
         color: white;
-       
+
         border-radius: 5px;
         cursor: pointer; 
         height: 100px;
