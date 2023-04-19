@@ -5,13 +5,13 @@
 
 To have the project fully functioning, the backend and frontend must be running at the same time.
 
-##Back-end (ML Model)
+##Back-end
 Installing packages: 
 run pip install -r requirements.txt
 Running backend:
 uvicorn main:app --reload
 __________________________________________________________________________
-##Front-end (React web-app)
+##Front-end
 
 cd into the aslingo folder.
 Then,
