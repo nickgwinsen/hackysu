@@ -2,19 +2,18 @@ import pickle
 import cv2
 import mediapipe as mp
 import numpy as np
+from fastapi import File, UploadFile, APIRouter
 
-from fastapi import File, UploadFile
-from router.router import router
-
+image_router = APIRouter()
 
 
 
 
 # API Endpoint responsible for processing an image and giving a response
-@router.post("/process/image")
+@image_router.post("/image", summary="process image")
 async def process_image(file: UploadFile = File(...)):
 
-    model_dict = pickle.load(open('../model.p', 'rb'))
+    model_dict = pickle.load(open('./model.p', 'rb'))
     model = model_dict['model']
 
     mp_hands = mp.solutions.hands
@@ -23,7 +22,7 @@ async def process_image(file: UploadFile = File(...)):
 
     hands = mp_hands.Hands(static_image_mode=True, max_num_hands=1, min_detection_confidence=0.7)
 
-    labels_dict = {0: 'A', 1: 'L', 2: 'O', 3: 'I', 4: 'H', 5: 'Y', 6: 'K'}
+    labels_dict = {0: 'A', 1: 'L', 2: 'O', 3: 'I', 4: 'H', 5: 'Y', 6: 'K', 7: 'I Love You', 8: 'S'}
 
     contents = await file.read()
     np_array = np.fromstring(contents, np.uint8)

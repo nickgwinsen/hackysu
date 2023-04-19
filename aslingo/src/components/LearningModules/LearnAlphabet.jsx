@@ -129,7 +129,7 @@ const LearnAlphabet = () => {
         formData.append('file', blob);
       
         try {
-          const response = await fetch('http://localhost:8000/process/image', {
+          const response = await fetch('http://localhost:8000/api/v1/process/image', {
             method: 'POST',
             body: formData,
           });
@@ -142,7 +142,7 @@ const LearnAlphabet = () => {
           } else if (result["predicted_letter"] === Letters[currentLetterIndex].letter) {
             handleSuccess(result["predicted_letter"])
           } else if (result["predicted_letter"] !== Letters[currentLetterIndex].letter) {
-            toast.error('Incorrect! Please try again.', { autoClose: 2000 })
+            toast.error(`Incorrect! You signed the letter '${result["predicted_letter"]}' Please try again.`, { autoClose: 2000 })
             handleRetake()
           }
 
