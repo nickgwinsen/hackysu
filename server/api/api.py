@@ -2,9 +2,13 @@ import pickle
 import cv2
 import mediapipe as mp
 import numpy as np
-from fastapi import APIRouter, File, UploadFile
 
-router = APIRouter()
+from fastapi import File, UploadFile
+from router.router import router
+
+
+
+
 
 # API Endpoint responsible for processing an image and giving a response
 @router.post("/process/image")
