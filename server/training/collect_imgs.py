@@ -6,12 +6,12 @@ DATA_DIR = '../data'
 if not os.path.exists(DATA_DIR):
     os.makedirs(DATA_DIR)
 
-number_of_classes = 8
-dataset_size = 100
+number_of_classes = 9
+dataset_size = 2000
 
 cap = cv2.VideoCapture(0)
 for j in range(number_of_classes):
-    if j == 1:
+    if j == 5:
         if not os.path.exists(os.path.join(DATA_DIR, str(j))):
             os.makedirs(os.path.join(DATA_DIR, str(j)))
 
@@ -26,7 +26,7 @@ for j in range(number_of_classes):
             if cv2.waitKey(25) == ord('q'):
                 break
 
-        counter = 0
+        counter = 1000
         while counter < dataset_size:
             ret, frame = cap.read()
             cv2.imshow('frame', frame)
