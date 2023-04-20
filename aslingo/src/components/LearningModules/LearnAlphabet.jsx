@@ -7,14 +7,10 @@ import { Letters } from '../../config/config';
 import Webcam from "react-webcam";
 import { toast } from 'react-toastify';
 
-
-import VideoPlayer from "./VideoPlayer";
 import FinishedLearning from "./FinishedLearning";
 
 const LearningModule = styled.div`
-    display: flex;
-
-   
+    display: flex; 
 
 `
 
@@ -117,71 +113,94 @@ const HeaderDiv = styled.div`
 
 const LearnAlphabet = () => {
     const [currentLetterIndex, setCurrentLetterIndex] = useState(0);
-    const [capturedImage, setCapturedImage] = useState(null);
+    const [image, setImage] = useState(null)
     const [isChecked, setIsChecked] = useState(false);
     const [success, setSuccess] = useState(false);
     const [finished, setFinished] = useState(false);
+    const [intervalId, setIntervalId] = useState(null);
 
-    const handleCheck = async () => {
-        const response = await fetch(capturedImage);
+    useEffect(() => {
+        if (intervalId !== null) {
+          clearInterval(intervalId);
+        }
+        const newIntervalId = setInterval(captureAndCheck, 5000);
+        setIntervalId(newIntervalId);
+        return () => clearInterval(newIntervalId);
+      }, [currentLetterIndex]);
+
+    const captureAndCheck = async () => {
+        if (!webcamRef.current) {
+            return;
+          }
+
+        const imageSrc = webcamRef.current.getScreenshot();
+        const response = await fetch(imageSrc);
+        
+        
         const blob = await response.blob();
         const formData = new FormData();
         formData.append('file', blob);
-      
-        try {
-          const response = await fetch('http://localhost:8000/api/v1/process/image', {
+        console.log(Letters[currentLetterIndex].letter)
+    
+        try {      
+            const response = await fetch('http://localhost:8000/api/v1/process/image', {
             method: 'POST',
             body: formData,
-          });
-          const result = await response.json();
-          console.log(result);
-
-          if (result["status"] === "failure") {
-            toast.error('Please use a hand!', { autoClose: 2000 });
-            handleRetake()
-          } else if (result["predicted_letter"] === Letters[currentLetterIndex].letter) {
-            handleSuccess(result["predicted_letter"])
-          } else if (result["predicted_letter"] !== Letters[currentLetterIndex].letter) {
-            toast.error(`Incorrect! You signed the letter '${result["predicted_letter"]}' Please try again.`, { autoClose: 2000 })
-            handleRetake()
-          }
-
+            });
+            const result = await response.json();
+    
+            console.log(result);
+    
+            if (result["data"]["status"] === "failure") {
+                //toast.error('Please use a hand!', { autoClose: 2000 });
+            } else if (result["data"]["predicted_letter"] === Letters[currentLetterIndex].letter) {
+                setImage(imageSrc)
+                handleSuccess()
+            } else if (result["data"]["predicted_letter"] !== Letters[currentLetterIndex].letter) {
+               // toast.error(`Incorrect! You signed the letter '${result["data"]["predicted_letter"]}' Please try again.`, { autoClose: 2000 })
+            }
+    
         } catch (error) {
-          toast.error('Please only use one hand!', { autoClose: 2000 });
-          handleRetake()
+           // toast.error('Please only use one hand!', { autoClose: 2000 });
         }
-      };
+        };
 
-      const handleSuccess = (result) => {
+      const handleSuccess = () => {
         setSuccess(true)
+        clearInterval(intervalId);
+        setIntervalId(null)
         toast.success('Correct! Good Job!', { autoClose: 2000 });
       }
 
     const handleContinue = () => {
-      console.log(currentLetterIndex)
-      console.log(Letters.length - 1)
         if (currentLetterIndex !== Letters.length - 1 ) {
-            nextLetter()
-            setCapturedImage(null)
             setIsChecked(false)
             setSuccess(false)
+            setImage(null)
+            nextLetter()
+            console.log(currentLetterIndex)
             handleRetake()
         } else {
             setFinished(true)
+            clearInterval(intervalId);
+            setIntervalId(null)
             localStorage.setItem('isLearning', 'false');
         }
     }
 
     const nextLetter = () => {
-        setCurrentLetterIndex((prevIndex) => (prevIndex + 1) % Letters.length);
+        setCurrentLetterIndex((prevIndex) => (prevIndex + 1));
+        clearInterval(intervalId);
+        setIntervalId(null)
       };
 
     const handleRetake = () => {
-        setCapturedImage(null)
         setSuccess(false)
         setIsChecked(false)
+        setImage(null)
+        clearInterval(intervalId);
+        setIntervalId(null)
     }
-
 
 
     const videoConstraints = {
@@ -192,13 +211,13 @@ const LearnAlphabet = () => {
 
     const webcamRef = React.useRef(null);
 
-    const capture = React.useCallback(
-        () => {
-            const imageSrc = webcamRef.current.getScreenshot();
-            setCapturedImage(imageSrc)
-        },
-        [webcamRef]
-    );
+    // const capture = React.useCallback(
+    //     () => {
+    //         const imageSrc = webcamRef.current.getScreenshot();
+    //         setCapturedImage(imageSrc)
+    //     },
+    //     [webcamRef]
+    // );
 
     return(
         <LearningModule>
@@ -217,7 +236,7 @@ const LearnAlphabet = () => {
               </HeaderDiv>
                
             )}
-                {!capturedImage &&
+                {!image &&
                 !finished && (
                     <CameraView>
                         <Webcam
@@ -229,13 +248,13 @@ const LearnAlphabet = () => {
                             videoConstraints={videoConstraints}
                             style={{borderRadius: 'inherit'}}
                         />
-                        <a onClick={capture}><FontAwesomeIcon icon={faCamera} size="xl"/></a>
+                        {/* <a onClick={capture}><FontAwesomeIcon icon={faCamera} size="xl"/></a> */}
                     </CameraView>
                 )} 
-                {capturedImage &&
+                {image &&
                 !finished && (
                     <CameraView>
-                        <CapturedImage src={capturedImage}/>
+                        <CapturedImage src={image}/>
                         {!success && (
                             <a onClick={handleRetake}>Retake</a>
                         )}
@@ -243,10 +262,10 @@ const LearnAlphabet = () => {
                 )}
                     <BottomDiv>
                         {!isChecked &&
-                        capturedImage &&
+                        image &&
                         !finished &&
                         !success && (
-                            <a onClick={handleCheck}>Check</a>
+                            <a>Check</a>
                         )}
                         {success &&
                         !finished && (

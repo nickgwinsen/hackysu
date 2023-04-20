@@ -1,10 +1,12 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, WebSocket
 from fastapi.middleware.cors import CORSMiddleware
 from motor.motor_asyncio import AsyncIOMotorClient
 from beanie import init_beanie
 from api.api_v1.router import api_v1_router
 from core.config import settings
 from system_logs.system_logs import CheckSystemLogs
+from services.image_processing_services.image_processing_service import ImageProcessingService
+
 
 # Databases
 from models.user_model import UserModel
@@ -53,6 +55,16 @@ async def read_root():
         "Software Engineer": "Nicholas Winsen, Anthony Micco, Tien Hoang, Ethan Slick, and Nicolas Ott"
     }
 
+@app.websocket("/ws")
+async def process_video(websocket: WebSocket):
+    await websocket.accept()
+    
+    while True:
+        video_data = await websocket.receive()
+        print(video_data)
+        result = await ImageProcessingService.process_image(video_data['text'])
+        
+        await websocket.send_json({"result": result})
 
 # Including the API V1 Routes
 app.include_router(api_v1_router, prefix="/api/v1")
