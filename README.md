@@ -5,26 +5,13 @@
 
 To have the project fully functioning, the backend and frontend must be running at the same time.
 
-###Back-end (ML Model)
-First, cd into the server folder.
-All python packages must also be installed to have the fully functioning project as well.
-
-Packages used:
-mediapipe (Requires compatible python version)
-opencv-python,
-tensorflow,
-matplotlib,
-numpy,
-scikit-learn,
-uvicorn,
-fastapi,
-python-multipart
-
-Once all packages are installed, run the command:
-
+##Back-end
+Installing packages: 
+run pip install -r requirements.txt
+Running backend:
 uvicorn main:app --reload
-
-###Front-end (React web-app)
+__________________________________________________________________________
+##Front-end
 
 cd into the aslingo folder.
 Then,
@@ -37,15 +24,13 @@ then, run the command
 npm start
 
 Then, the front end should be running.
-
-Now FluentSign should be running.
+_________________________________________________________________________
 
 
 
 
 
 ## About the project
-
 
 
 
