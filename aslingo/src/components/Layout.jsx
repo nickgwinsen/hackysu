@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 
 // Components
 import Landing from './pages/Landing';
 import About from "./pages/About";
 import Why from "./pages/Why";
+
 
 export const Main = styled.main`
 
@@ -16,11 +17,11 @@ export const Main = styled.main`
 `
 
 const Layout = () => {
-    return(
+    return (
         <>
-            <Landing/>
-            <About/>
-            <Why/>
+            <Landing />
+            <About />
+            <Why />
         </>
 
     )

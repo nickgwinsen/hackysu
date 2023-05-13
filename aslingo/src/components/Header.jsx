@@ -1,11 +1,12 @@
-import React, { useState, useEffect } from 'react';
-import {Link} from "react-router-dom";
-import {CSSTransition, TransitionGroup} from 'react-transition-group';
+import React, { useState, useEffect, useContext } from 'react';
+import { Link } from "react-router-dom";
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import PropTypes from "prop-types";
 import styled from 'styled-components';
 import { navLinks } from '../config/config';
-import {smoothScroll} from "../hooks/smoothScroll";
+import { smoothScroll } from "../hooks/smoothScroll";
 import Menu from "./Menu";
+import { ThemeContext } from '../Contexts/ThemeContext';
 
 
 
@@ -135,6 +136,9 @@ const HeaderLinks = styled.div`
 
 
 const Header = ({ isHome }) => {
+
+    const { theme, toggleTheme } = useContext(ThemeContext)
+
     const [isMounted, setIsMounted] = useState(!isHome)
 
     useEffect(() => {
@@ -154,23 +158,23 @@ const Header = ({ isHome }) => {
 
     const timeout = 2000;
     const fadeClass = isHome ? 'fade' : '';
-    const fadeDownClass = isHome? 'fadedown' : '';
+    const fadeDownClass = isHome ? 'fadedown' : '';
 
     const logo = (
         <HeaderLogo>
             {isHome ? (
                 <a href="#home" onClick={(e) => smoothScroll(e, '#home')}><img src="../hand_no_fill_white.png" alt="hand_no_Fill" />
-                <h1>FluentSign</h1></a>
+                    <h1>FluentSign</h1></a>
             ) : (
                 <Link to="/" onClick={handleHome}><img src="../hand_no_fill_white.png" alt="hand_no_Fill" />
-                <h1>FluentSign</h1></Link>
+                    <h1>FluentSign</h1></Link>
             )}
         </HeaderLogo>
     )
 
 
-    return(
-        <HeaderWrapper> 
+    return (
+        <HeaderWrapper>
             <HeaderDiv>
                 <TransitionGroup component={null}>
                     {isMounted && (
@@ -188,24 +192,25 @@ const Header = ({ isHome }) => {
                                 navLinks.map(({ url, name }, i) => (
                                     <CSSTransition key={i} classNames={fadeDownClass} timeout={timeout}>
                                         <li key={i} style={{ transitionDelay: `${isHome ? i * 100 : 0}ms` }}>
-                                                <a href={url} onClick={(e) => smoothScroll(e, url)}>{name}</a>
-                                            </li>
+                                            <a href={url} onClick={(e) => smoothScroll(e, url)}>{name}</a>
+                                        </li>
                                     </CSSTransition>
-                            ))}
+                                ))}
                         </TransitionGroup>
                     </ul>
                 </HeaderLinks>
                 <TransitionGroup component={null}>
                     {isHome &&
                         isMounted && (
-                        <CSSTransition classNames={fadeDownClass} timeout={300}>
-                            <Menu style={{ transitionDelay: `${isHome ? 100 : 0}ms` }}/>
-                        </CSSTransition>
-                    )}
+                            <CSSTransition classNames={fadeDownClass} timeout={300}>
+                                <Menu style={{ transitionDelay: `${isHome ? 100 : 0}ms` }} />
+                            </CSSTransition>
+                        )}
                 </TransitionGroup>
+                <button onClick={() => { toggleTheme() }}>{theme}</button>
             </HeaderDiv>
         </HeaderWrapper>
-        )
+    )
 }
 
 Header.propTypes = {

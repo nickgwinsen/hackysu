@@ -1,21 +1,39 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import styled from 'styled-components';
 import Particles from "react-tsparticles";
-import {CSSTransition, Transition, TransitionGroup} from 'react-transition-group';
+import { CSSTransition, Transition, TransitionGroup } from 'react-transition-group';
 import { Link } from "react-router-dom";
 import GalaxyBackground from "../../config/GalaxyBackround";
+import { ThemeContext } from "../../Contexts/ThemeContext";
+
+
 
 
 const LandingSection = styled.section`
     margin: 0 auto;
     
-   `
-const Inner = styled.div`
+    
+    `
+const InnerLight = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-around;
     height: 100vh;
+
+    
+`
+const InnerDark = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    height: 100vh;
+
+    border: 2px solid black;
+	border-radius: 10px;
+	background-color: rgb(24, 24, 24);
+
     
 `
 
@@ -30,8 +48,7 @@ const LandingGrid = styled.div`
         display: flex;
         flex-direction: column;
     }
-    
-    
+
 
 `
 
@@ -40,6 +57,8 @@ const LandingHeader = styled.div`
     flex-direction: column;
     align-items: center;
     text-align: center;
+
+    
 
     h2 {
         font-weight: 700;
@@ -152,12 +171,13 @@ const ButtonDiv = styled.div`
         }
     }
 
-`   
+`
 
 
 
 const Landing = () => {
     const [isMounted, setIsMounted] = useState(false)
+    const { theme } = useContext(ThemeContext)
 
     useEffect(() => {
         const timeout = setTimeout(() => {
@@ -177,47 +197,85 @@ const Landing = () => {
     const fadeClass = 'fade';
     const fadeUpClass = 'fadeup';
 
-    
-    return(
-            <LandingSection id="home">
-                <GalaxyBackground/>
-                <Inner>
-                        <LandingHeader>
+
+    return (
+        <LandingSection id="home">
+            <GalaxyBackground />
+            {theme === 'light' ?
+                <InnerLight>
+                    <LandingHeader>
+                        <TransitionGroup component={null}>
+                            {isMounted && (
+                                <CSSTransition classNames={fadeUpClass} timeout={timeout}>
+                                    <div>
+                                        <h2>Welcome to FluentSign</h2>
+                                        <span style={{ transitionDelay: "100ms" }}>Where you can learn American Sign Language!</span>
+                                    </div>
+                                </CSSTransition>
+
+                            )}
+                        </TransitionGroup>
+                    </LandingHeader>
+                    <LandingGrid>
+                        <ImageDiv>
                             <TransitionGroup component={null}>
                                 {isMounted && (
                                     <CSSTransition classNames={fadeUpClass} timeout={timeout}>
-                                        <div>
-                                            <h2>Welcome to FluentSign</h2>
-                                            <span style={{ transitionDelay: "100ms" }}>Where you can learn American Sign Language!</span>
-                                        </div>
+                                        <img src="../hand_fill.png" alt="hand filled" />
                                     </CSSTransition>
-
                                 )}
                             </TransitionGroup>
-                        </LandingHeader>
-                        <LandingGrid>
-                            <ImageDiv>
-                                <TransitionGroup component={null}>
-                                    {isMounted && (
-                                        <CSSTransition classNames={fadeUpClass} timeout={timeout}>
-                                            <img src="../hand_fill.png" alt="hand filled" />
-                                        </CSSTransition>
-                                    )}
-                                </TransitionGroup>
-                            </ImageDiv>
-                            <ButtonDiv>
-                                <TransitionGroup component={null}>
-                                    {isMounted && (
-                                        <CSSTransition classNames={fadeUpClass} timeout={timeout}>
-                                            <Link to="/learn" onClick={handeClick}>Start Learning!</Link>
-                                        </CSSTransition>
-                                    )}
-                                </TransitionGroup>
-                            </ButtonDiv>
-                        </LandingGrid>
-                </Inner>
-            </LandingSection>
-         
+                        </ImageDiv>
+                        <ButtonDiv>
+                            <TransitionGroup component={null}>
+                                {isMounted && (
+                                    <CSSTransition classNames={fadeUpClass} timeout={timeout}>
+                                        <Link to="/learn" onClick={handeClick}>Start Learning!</Link>
+                                    </CSSTransition>
+                                )}
+                            </TransitionGroup>
+                        </ButtonDiv>
+                    </LandingGrid>
+                </InnerLight>
+                :
+                <InnerDark>
+                    <LandingHeader>
+                        <TransitionGroup component={null}>
+                            {isMounted && (
+                                <CSSTransition classNames={fadeUpClass} timeout={timeout}>
+                                    <div>
+                                        <h2>Welcome to FluentSign</h2>
+                                        <span style={{ transitionDelay: "100ms" }}>Where you can learn American Sign Language!</span>
+                                    </div>
+                                </CSSTransition>
+
+                            )}
+                        </TransitionGroup>
+                    </LandingHeader>
+                    <LandingGrid>
+                        <ImageDiv>
+                            <TransitionGroup component={null}>
+                                {isMounted && (
+                                    <CSSTransition classNames={fadeUpClass} timeout={timeout}>
+                                        <img src="../hand_fill.png" alt="hand filled" />
+                                    </CSSTransition>
+                                )}
+                            </TransitionGroup>
+                        </ImageDiv>
+                        <ButtonDiv>
+                            <TransitionGroup component={null}>
+                                {isMounted && (
+                                    <CSSTransition classNames={fadeUpClass} timeout={timeout}>
+                                        <Link to="/learn" onClick={handeClick}>Start Learning!</Link>
+                                    </CSSTransition>
+                                )}
+                            </TransitionGroup>
+                        </ButtonDiv>
+                    </LandingGrid>
+                </InnerDark>
+            }
+        </LandingSection>
+
     )
 }
 
